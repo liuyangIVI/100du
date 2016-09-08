@@ -1,0 +1,320 @@
+gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器；她不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成；使用她，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。
+gulp是基于Nodejs的自动任务运行器， 她能自动化地完成 javascript/coffee/sass/less/html/image/css 等文件的的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。在实现上，她借鉴了Unix操作系统的管道（pipe）思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。通过本文，我们将学习如何使用Gulp来改变开发流程，从而使开发更加快速高效。
+gulp 和 grunt 非常类似，但相比于 grunt 的频繁 IO 操作，gulp 的流操作，能更快地更便捷地完成构建工作。
+
+Grunt 是一个基于任务的JavaScript工程命令行构建工具。
+grunt 实际使用
+每次 grunt 运行时，它将查看当前目录下的名为 grunt.js 的文件，又称作 “gruntfile” 。如果该文件没有找到， grunt 将继续在它的父目录中查找直到找到。该文件一般被放置在你的项目库的根目录下。它是一个由项目配置以及自定义项目特定任务组成的有效的 JavaScript 文件。
+
+bower介绍(是一个插件)
+bower解决js的依赖管理
+Bower 是 twitter 推出的一款包管理工具，基于nodejs的模块化思想，把功能分散到各个模块中，让模块和模块之间存在联系，通过 Bower 来管理模块间的这种联系。
+包管理工具一般有以下的功能：
+注册机制：每个包需要确定一个唯一的 ID 使得搜索和下载的时候能够正确匹配，所以包管理工具需要维护注册信息，可以依赖其他平台。
+文件存储：确定文件存放的位置，下载的时候可以找到，当然这个地址在网络上是可访问的。
+上传下载：这是工具的主要功能，能提高包使用的便利性。比如想用 jquery 只需要 install 一下就可以了，不用到处找下载。上传并不是必备的，根据文件存储的位置而定，但需要有一定的机制保障。
+依赖分析：这也是包管理工具主要解决的问题之一，既然包之间是有联系的，那么下载的时候就需要处理他们之间的依赖。下载一个包的时候也需要下载依赖的包。
+
+gulp、grunt、fis等自动构建工具
+RequireJS， Seajs等模块化加载工具
+
+webpack前端模块加载工具（比requireJS和browserify好）
+browserify的出现非常棒，但webpack更胜一筹！
+我们来看看webpack支持哪些功能特性：
+支持CommonJs和AMD模块，意思也就是我们基本可以无痛迁移旧项目。
+支持模块加载器和插件机制，可对模块灵活定制。特别是我最爱的babel-loader，有效支持ES6。
+可以通过配置，打包成多个文件。有效利用浏览器的缓存功能提升性能。
+将样式文件和图片等静态资源也可视为模块进行打包。配合loader加载器，可以支持sass，less等CSS预处理器。
+内置有source map，即使打包在一起依旧方便调试。
+看完上面这些，可以想象它就是一个前端工具，可以让我们进行各种模块加载，预处理后，再打包。之前我们对这些的处理是放在grunt或gulp等前端自动化工具中。有了webpack，我们无需借助自动化工具对模块进行各种处理，让我们工具的任务分的更加清晰。
+
+HTML模板页的套用ejs,jade
+
+artTemplate
+
+性能卓越，执行速度通常是 Mustache 与 tmpl 的 20 多倍（性能测试）
+支持运行时调试，可精确定位异常模板所在语句（演示）
+对 NodeJS Express 友好支持
+安全，默认对输出进行转义、在沙箱中运行编译后的代码（Node版本可以安全执行用户上传的模板）
+支持include语句
+可在浏览器端实现按路径加载模板（详情）
+支持预编译，可将模板转换成为非常精简的 js 文件
+模板语句简洁，无需前缀引用数据，有简洁版本与原生语法版本可选
+支持所有流行的浏览
+
+***********************************************************************************************8
+1、渐变
+针对不同的浏览器采用不同的渐变做法-兼容性
+/*css3样式*/
+	background: -webkit-linear-gradient(top,#ffffff,#f8f8f8);
+	background: -moz-linear-gradient(top,#ffffff,#f8f8f8);
+	background: -ms-linear-gradient(top,#ffffff,#f8f8f8);
+	background: linear-gradient(top,#ffffff,#f8f8f8);
+	/*针对IE浏览器*/
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#FFFFFF, endColorstr=#f8f8f8)";
+	/*针对ie6or7的兼容性*/ hack
+	+background: #F9F9F9;
+2、清浮动
+/*针对IE浏览器*/
+.clear{
+	zoom: 1;
+}
+/*标准浏览器*/
+.clear:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+3、圆角
+一张直角的图片要变成圆角的图片，样式如下：
+margin-bottom: 10px;
+border-radius: 6px;
+overflow: hidden;
+IE6-7-8不好使，采用优雅降级，就让他们显示为直角，让他们不升级！！！
+4、样式编码规范
+多个ID名或class名之间用逗号隔开并加一个空格;css样式也是用空格隔开
+5、IE6中元素比元素多一像素顶开
+给父级一个相对定位，兄弟一个绝对定位，更改Z-Index让需要显示的显示在最上面
+6、浮动的DIV在遇到margin-bottom的时候会失效（比如两个元素a,b，都有10px的下边距，当拿掉b时，在ie6、7中a的下边距也会丢失）
+给包裹的元素加上padding，用padding替代margin
+7、阴影
+box-shadow:(阴影横向的距离) (阴影竖向距离) (扩散) (颜色) 比如：box-shadow: 1px 1px 0 #EDEDED;
+8、雪碧图sprite
+尽量把同一模块的ico放在一个大图上，便于后期维护
+9、IE6下PNG透明解决方案
+<!--[if lte IE 6]> 
+<script src="Js/DD_belatedPNG_0.0.8a.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+DD_belatedPNG.fix('div, ul, img, li, input , a, .png_bg'); 
+/* 将 .png_bg 改成你应用了透明PNG的CSS选择器*/ 
+</script> 
+<![endif]-->
+10、内阴影
+box-shadow: inset 2px 2px 3px rgba(0,0,0,0.3);
+11、transparent 透明的背景色
+除了IE6不认，其他的所有的浏览器都认，包括IE7；例{border-left: 4px solid transparent; border-right: 4px solid transparent;}
+在IE6下是黑色的矩形，为了解决这个问题需要用{_border-left: 4px solid transparent; _border-right: 4px solid transparent;}，再加上overflow：hidde
+12、hack
+\9 IE10及10以下的版本
+*  IE7及7以下的版本
+_  IE6及6以下的版本
+13、针对IE6，margin负值没有作用的办法
+采用position：relative
+14、ie6下面li里的元素有浮动，会导致有3-4个像的bug
+解决方法：vertical-align:middle
+15、坑爹的ie6规定元素的高不能小于19px
+所以要用overflow：hidden
+16、IE6 不支持min-width属性，但是IE7+和W3C支持
+/* IE6 不支持min-width属性，但是IE7+和W3C支持 */
+min-width:1000px;
+/* 用CSS表达式让IE6也支持最小宽度 */
+_width:expression((document.documentElement.clientWidth||document.body.clientWidth)<1000?"1000px":"");
+17、ie常见问题
+1. ie只有a支持hover,并且注意a里要有href才行。
+2. IE6中用了float:left之后导致margin-left双倍边距的BUG解决方法加上display:inline
+3. 如果存在文字在层居中的问题，水平方向可以用text-align代替，垂直方向可以用line-height来控制，如果只是控制上边距，就用padding-top。这样可以避免在ie6上的某些不必要的错误。
+4. ajax传参数时，汉字一定要用encodeURIComponent（string），编码一下，要不然可能变成乱码中文在ie6里。
+5. ie6下select元素会以窗口形式显示的，这是ie6的一个bug，所以当你设置一层为相对或绝对定位时，select仍然会浮在那个层之上。 解决方法，用一个和那个层同样大小的iframe放在test下面，select上面，用iframe遮住select。
+/*******************************************************************************************/
+移动端
+/*******************************************************************************************/
+面试常见问题
+作者：程序源
+链接：https://www.zhihu.com/question/41978715/answer/93062925
+来源：知乎
+著作权归作者所有，转载请联系作者获得授权。
+
+HTML+CSS
+1.对WEB标准以及W3C的理解与认识
+标签闭合、标签小写、不乱嵌套、提高搜索机器人搜索几率、使用外 链css和js脚本、结构行为表现的分离、文件下载与页面速度更快、内容能被更多的用户所访问、内容能被更广泛的设备所访问、更少的代码和组件，容易维 护、改版方便，不需要变动页面内容、提供打印版本而不需要复制内容、提高网站易用性；
+
+2.xhtml和html有什么区别
+HTML是一种基本的WEB网页设计语言，XHTML是一个基于XML的置标语言
+最主要的不同：
+XHTML 元素必须被正确地嵌套。
+XHTML 元素必须被关闭。
+标签名必须用小写字母。
+XHTML 文档必须拥有根元素。
+
+3.Doctype? 严格模式与混杂模式-如何触发这两种模式，区分它们有何意义?
+用于声明文档使用那种规范（html/Xhtml）一般为 严格 过度 基于框架的html文档
+加入XMl声明可触发，解析方式更改为IE5.5 拥有IE5.5的bug
+
+4.行内元素有哪些?块级元素有哪些?CSS的盒模型?
+块级元素：div p h1 h2 h3 h4 form ul
+行内元素: a b br i span input select
+Css盒模型:内容，border ,margin，padding
+
+5.CSS引入的方式有哪些? link和@import的区别是?
+内联 内嵌 外链 导入
+区别 ：同时加载
+前者无兼容性，后者CSS2.1以下浏览器不支持
+Link 支持使用javascript改变样式，后者不可
+
+6.CSS选择符有哪些?哪些属性可以继承?优先级算法如何计算?内联和important哪个优先级高?
+标签选择符 类选择符 id选择符
+继承不如指定 Id>class>标签选择
+后者优先级高
+
+7.前端页面有哪三层构成，分别是什么?作用是什么?
+结构层 Html 表示层 CSS 行为层 js
+
+8.css的基本语句构成是?
+选择器{属性1:值1;属性2:值2;……}
+
+9.你做的页面在哪些流览器测试过?这些浏览器的内核分别是什么?
+Ie(Ie内核) 火狐（Gecko） 谷歌（webkit） opear(Presto)
+
+10.写出几种IE6 BUG的解决方法
+1.双边距BUG float引起的 使用display
+2.3像素问题 使用float引起的 使用dislpay:inline -3px
+3.超链接hover 点击后失效 使用正确的书写顺序 link visited hover active
+4.Ie z-index问题 给父级添加position:relative
+5.Png 透明 使用js代码 改
+6.Min-height 最小高度 ！Important 解决’
+7.select 在ie6下遮盖 使用iframe嵌套
+8.为什么没有办法定义1px左右的宽度容器（IE6默认的行高造成的，使用over:hidden,zoom:0.08 line-height:1px）
+
+11.标签上title与alt属性的区别是什么?
+Alt 当图片不显示是 用文字代表。
+Title 为该属性提供信息
+
+12.描述css reset的作用和用途。
+Reset重置浏览器的css默认属性 浏览器的品种不同，样式不同，然后重置，让他们统一
+
+13.解释css sprites，如何使用。
+Css 精灵 把一堆小的图片整合到一张大的图片上，减轻服务器对图片的请求数量
+
+14.浏览器标准模式和怪异模式之间的区别是什么?
+盒子模型 渲染模式的不同
+使用 window.top.document.compatMode 可显示为什么模式
+
+15.你如何对网站的文件和资源进行优化?期待的解决方案包括：
+文件合并
+文件最小化/文件压缩
+使用CDN托管
+缓存的使用
+
+16.什么是语义化的HTML?
+直观的认识标签 对于搜索引擎的抓取有好处
+
+17.清除浮动的几种方式，各自的优缺点
+1.使用空标签清除浮动 clear:both（理论上能清楚任何标签，，，增加无意义的标签）
+2.使用overflow:auto（空标签元素清除浮动而不得不增加无意代码的弊端,,使用zoom:1用于兼容IE）
+3.是用afert伪元素清除浮动(用于非IE浏览器)
+
+
+Javascript
+1.javascript的typeof返回哪些数据类型
+Object number function boolean underfind string
+
+2.例举3种强制类型转换和2种隐式类型转换?
+强制（parseInt,parseFloat,number）
+隐式（== – ===）
+
+3.split() join() 的区别
+前者是切割成数组的形式，后者是将数组转换成字符串
+
+4.数组方法pop() push() unshift() shift()
+Push()尾部添加, pop()尾部删除
+Unshift()头部添加, shift()头部删除
+
+5.事件绑定和普通事件有什么区别
+
+6.IE和DOM事件流的区别
+1.执行顺序不一样、
+2.参数不一样
+3.事件加不加on
+4.this指向问题
+
+7.IE和标准下有哪些兼容性的写法
+Var ev = ev || window.event
+document.documentElement.clientWidth || document.body.clientWidth
+Var target = ev.srcElement||ev.target
+
+8.ajax请求的时候get 和post方式的区别
+一个在url后面 一个放在虚拟载体里面
+有大小限制
+安全问题
+应用不同 一个是论坛等只需要请求的，一个是类似修改密码的
+
+9.call和apply的区别
+Object.call(this,obj1,obj2,obj3)
+Object.apply(this,arguments)
+
+10.ajax请求时，如何解释json数据
+使用eval parse 鉴于安全性考虑 使用parse更靠谱
+11.b继承a的方法
+12.写一个获取非行间样式的函数
+t
+function getStyle(obj,attr,value)
+{
+if(!value)
+{
+if(obj.currentStyle)
+{
+return obj.currentStyle(attr)
+}
+else
+{
+obj.getComputedStyle(attr,false)
+}
+}
+else
+{
+obj.style[attr]=value
+}
+}
+
+13.事件委托是什么
+让利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行！
+http://www.webasily.com/?p=78 例子可见此链接
+
+14.闭包是什么，有什么特性，对页面有什么影响
+闭包就是能够读取其他函数内部变量的函数。
+深入理解JavaScript的闭包特性 如何给循环中的对象添加事件 此链接可查看（问这个问题的不是一个公司）
+
+15.如何阻止事件冒泡和默认事件
+canceBubble return false
+
+16.添加 删除 替换 插入到某个接点的方法
+obj.appendChidl()
+obj.innersetBefore
+obj.replaceChild
+obj.removeChild
+
+17.解释jsonp的原理，以及为什么不是真正的ajax
+动态创建script标签，回调函数
+Ajax是页面无刷新请求数据操作
+
+18.javascript的本地对象，内置对象和宿主对象
+本地对象为array obj regexp等可以new实例化
+内置对象为gload Math 等不可以实例化的
+宿主为浏览器自带的document,window 等
+
+19.document load 和document ready的区别
+Document.onload 是在结构和样式加载完才执行js
+Document.ready原生种没有这个方法，jquery中有 $().ready(function)
+
+20.”==”和“===”的不同
+前者会自动转换类型
+后者不会
+
+21.javascript的同源策略
+一段脚本只能读取来自于同一来源的窗口和文档的属性，这里的同一来源指的是主机名、协议和端口号的组合
+
+22.编写一个数组去重的方法
+function oSort(arr)
+{
+	var result ={};
+	var newArr=[];
+	for(var i=0;i<arr.length;i++)
+	{
+		if(!result[arr])
+		{
+			newArr.push(arr)
+			result[arr]=1
+		}
+	}
+	return newArr;
+}
